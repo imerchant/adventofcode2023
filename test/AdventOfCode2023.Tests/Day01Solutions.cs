@@ -5,10 +5,27 @@ namespace AdventOfCode2023.Tests;
 public class Day01Solutions
 {
     [Fact]
-    public void Puzzle1_SumCalibrationValues()
+    public void Puzzle1and2_SumCalibrationValues()
     {
         var calibrations = new Calibrations(Input.Day01);
         calibrations.SumOfDigits.Should().Be(55621);
+        calibrations.SumOfNumbers.Should().Be(53592);
+    }
+
+    public const string Example2 =
+@"two1nine
+eightwo1three
+abcone2threexyz
+xtwone3four
+4nineeightseven2
+zoneight234
+7pqrstsixteen";
+
+    [Fact]
+    public void Example2_SumsCalibrationValues()
+    {
+        var calibrations = new Calibrations(Example2);
+        calibrations.SumOfNumbers.Should().Be(281);
     }
 
     public const string Example1 =
