@@ -1,6 +1,6 @@
 namespace AdventOfCode2023.Day02;
 
-public class Games
+public class Games: IEnumerable<Game>
 {
     public static readonly Regex GameRegex = new(@"Game (\d+?): (?'content'.+)", RegexOptions.Compiled);
 
@@ -15,6 +15,10 @@ public class Games
             .Select((game, k) => new Game(k+1, GameRegex.Match(game).Groups["content"].Value))
             .ToList();
     }
+
+    public IEnumerator<Game> GetEnumerator() => _games.GetEnumerator();
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }
 
 public class Game
@@ -22,10 +26,11 @@ public class Game
     private static readonly Regex Red = new(@"(?'value'\d+?) r", RegexOptions.Compiled);
     private static readonly Regex Blue = new(@"(?'value'\d+?) b", RegexOptions.Compiled);
     private static readonly Regex Green = new(@"(?'value'\d+?) g", RegexOptions.Compiled);
+    private readonly List<Pull> pulls = new();
 
     public int Id { get; }
     public bool PossibleFor12Red13Green14Blue => pulls.All(pull => pull.PossibleFor12Red13Green14Blue);
-    private readonly List<Pull> pulls = new();
+    public long Power { get; }
 
     public Game(int id, string input)
     {
@@ -37,6 +42,9 @@ public class Game
             var green = Green.TryMatch(pull, out var gm) ? int.Parse(gm.Groups["value"].Value) : 0;
             pulls.Add(new Pull(red, green, blue));
         }
+        Power = pulls.Select(pull => (long)pull.Red).Max() *
+                pulls.Select(pull => (long)pull.Green).Max() *
+                pulls.Select(pull => (long)pull.Blue).Max();
     }
 }
 

@@ -5,10 +5,11 @@ namespace AdventOfCode2023.Tests;
 public class Day02Solutions
 {
     [Fact]
-    public void Puzzle1_GamesPossibleFor12Red13Green14Blue()
+    public void Puzzle1And2_GamesPossibleFor12Red13Green14Blue_AndPower()
     {
         var games = new Games(Input.Day02);
         games.TotalPossibleFor12Red13Green14Blue.Should().Be(2476);
+        games.Sum(x => x.Power).Should().Be(54911);
     }
 
     public const string Example1 =
@@ -23,5 +24,6 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
     {
         var games = new Games(Example1);
         games.TotalPossibleFor12Red13Green14Blue.Should().Be(8);
+        games.Sum(x => x.Power).Should().Be(2286);
     }
 }
