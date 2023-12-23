@@ -21,6 +21,14 @@ public class Cards : IEnumerable<Card>
 
             _cards.Add(new Card(id, winning, have));
         }
+
+        foreach (var card in _cards)
+        {
+            for (var i = 0; i < card.Intersections; ++i)
+            {
+                _cards[card.Id + i].Instances += card.Instances;
+            }
+        }
     }
 
     public IEnumerator<Card> GetEnumerator() => _cards.GetEnumerator();
@@ -28,19 +36,24 @@ public class Cards : IEnumerable<Card>
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }
 
-public class Card(int id, List<int> winning, List<int> have)
+public class Card
 {
-    public int Id { get; } = id;
-    public List<int> Winning { get; } = winning;
-    public List<int> Have { get; } = have;
-    public long Points { get; } = GetPoints(winning, have);
+    public int Id { get; }
+    public List<int> Winning { get; }
+    public List<int> Have { get; }
+    public long Points { get; }
+    public int Intersections { get; }
+    public long Instances { get; set; } = 1;
 
-    private static long GetPoints(List<int> winning, List<int> have)
+    public Card(int id, List<int> winning, List<int> have)
     {
-        var intersection = have.Intersect(winning).Count() - 1;
-        return intersection switch
+        Id = id;
+        Winning = winning;
+        Have = have;
+        Intersections = have.Intersect(winning).Count();
+        Points = Intersections switch
         {
-            >= 0 => (long)Math.Pow(2, intersection),
+            > 0 => (long)Math.Pow(2, Intersections - 1),
             _ => 0
         };
     }

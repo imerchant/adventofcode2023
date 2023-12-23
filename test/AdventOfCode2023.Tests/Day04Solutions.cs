@@ -5,10 +5,11 @@ namespace AdventOfCode2023.Tests;
 public class Day04Solutions
 {
     [Fact]
-    public void Puzzle1_CountPoints()
+    public void Puzzle1And2_CountPoints_AndInstances()
     {
         var cards = new Cards(Input.Day04);
-        cards.Sum(x => x.Points).Should().Be(24542L);
+        cards.Sum(x => x.Points).Should().Be(24_542L);
+        cards.Sum(x => x.Instances).Should().Be(8_736_438L);
     }
 
     public const string Example1 =
@@ -20,9 +21,10 @@ Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36
 Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11";
 
     [Fact]
-    public void Example1_CountsPoints()
+    public void Example1_CountsPoints_AndInstances()
     {
         var cards = new Cards(Example1);
         cards.Sum(x => x.Points).Should().Be(13);
+        cards.Sum(x => x.Instances).Should().Be(30);
     }
 }
