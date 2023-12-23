@@ -8,8 +8,8 @@ public class Day01Solutions
     public void Puzzle1and2_SumCalibrationValues()
     {
         var calibrations = new Calibrations(Input.Day01);
-        calibrations.SumOfDigits.Should().Be(55621);
-        calibrations.SumOfNumbers.Should().Be(53592);
+        calibrations.SumOfDigits.Should().Be(55_621);
+        calibrations.SumOfNumbers.Should().Be(53_592);
     }
 
     public const string Example2 =

@@ -14,7 +14,7 @@ public class Day03Solutions
             .GroupBy(x => x.GearIndex)
             .Where(x => x.Count() == 2)
             .Sum(x => x.First().Value * x.Last().Value)
-            .Should().Be(79026871);
+            .Should().Be(79_026_871);
     }
 
     public const string Example1 =
@@ -35,12 +35,12 @@ public class Day03Solutions
         var partNumbers = new PartNumbers(Example1);
         partNumbers.Should().HaveCount(10);
         partNumbers.Count(x => x.IsValid).Should().Be(8);
-        partNumbers.Where(x => x.IsValid).Sum(x => x.Value).Should().Be(4361);
+        partNumbers.Where(x => x.IsValid).Sum(x => x.Value).Should().Be(4_361);
         partNumbers
             .Where(x => x.GearIndex is not null)
             .GroupBy(x => x.GearIndex)
             .Where(x => x.Count() == 2)
             .Sum(x => x.First().Value * x.Last().Value)
-            .Should().Be(467835);
+            .Should().Be(467_835);
     }
 }

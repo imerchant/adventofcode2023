@@ -8,8 +8,8 @@ public class Day02Solutions
     public void Puzzle1And2_GamesPossibleFor12Red13Green14Blue_AndPower()
     {
         var games = new Games(Input.Day02);
-        games.TotalPossibleFor12Red13Green14Blue.Should().Be(2476);
-        games.Sum(x => x.Power).Should().Be(54911);
+        games.TotalPossibleFor12Red13Green14Blue.Should().Be(2_476);
+        games.Sum(x => x.Power).Should().Be(54_911);
     }
 
     public const string Example1 =
@@ -24,6 +24,6 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
     {
         var games = new Games(Example1);
         games.TotalPossibleFor12Red13Green14Blue.Should().Be(8);
-        games.Sum(x => x.Power).Should().Be(2286);
+        games.Sum(x => x.Power).Should().Be(2_286);
     }
 }
