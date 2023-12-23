@@ -1,8 +1,8 @@
 namespace AdventOfCode2023.Day02;
 
-public class Games: IEnumerable<Game>
+public class Games : IEnumerable<Game>
 {
-    public static readonly Regex GameRegex = new(@"Game (\d+?): (?'content'.+)", RegexOptions.Compiled);
+    public static readonly Regex GameRegex = new(@"Game (?'id'\d+?): (?'content'.+)", RegexOptions.Compiled);
 
     private readonly List<Game> _games;
 
@@ -12,7 +12,8 @@ public class Games: IEnumerable<Game>
     {
         _games = input
             .SplitLines()
-            .Select((game, k) => new Game(k+1, GameRegex.Match(game).Groups["content"].Value))
+            .Select(line => GameRegex.Match(line))
+            .Select(match => new Game(int.Parse(match.Groups["id"].Value), match.Groups["content"].Value))
             .ToList();
     }
 

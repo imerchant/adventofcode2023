@@ -24,9 +24,9 @@ public class Cards : IEnumerable<Card>
 
         foreach (var card in _cards)
         {
-            for (var i = 0; i < card.Intersections; ++i)
+            foreach (var i in Enumerable.Range(card.Id, card.Intersections))
             {
-                _cards[card.Id + i].Instances += card.Instances;
+                _cards[i].Instances += card.Instances;
             }
         }
     }
@@ -51,10 +51,6 @@ public class Card
         Winning = winning;
         Have = have;
         Intersections = have.Intersect(winning).Count();
-        Points = Intersections switch
-        {
-            > 0 => (long)Math.Pow(2, Intersections - 1),
-            _ => 0
-        };
+        Points = Intersections > 0 ? (long)Math.Pow(2, Intersections - 1) : 0;
     }
 }

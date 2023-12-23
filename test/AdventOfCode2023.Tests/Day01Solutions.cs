@@ -5,7 +5,7 @@ namespace AdventOfCode2023.Tests;
 public class Day01Solutions
 {
     [Fact]
-    public void Puzzle1and2_SumCalibrationValues()
+    public void Puzzle1And2_SumCalibrationValues()
     {
         var calibrations = new Calibrations(Input.Day01);
         calibrations.SumOfDigits.Should().Be(55_621);
