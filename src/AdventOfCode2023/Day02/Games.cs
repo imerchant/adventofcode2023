@@ -26,7 +26,7 @@ public class Game
     private static readonly Regex Red = new(@"(?'value'\d+?) r", RegexOptions.Compiled);
     private static readonly Regex Blue = new(@"(?'value'\d+?) b", RegexOptions.Compiled);
     private static readonly Regex Green = new(@"(?'value'\d+?) g", RegexOptions.Compiled);
-    private readonly List<Pull> pulls = new();
+    private readonly List<Pull> pulls = [];
 
     public int Id { get; }
     public bool PossibleFor12Red13Green14Blue => pulls.All(pull => pull.PossibleFor12Red13Green14Blue);
@@ -37,21 +37,21 @@ public class Game
         Id = id;
         foreach (var pull in input.SplitOn("; "))
         {
-            var blue = Blue.TryMatch(pull, out var bm) ? int.Parse(bm.Groups["value"].Value) : 0;
-            var red = Red.TryMatch(pull, out var rm) ? int.Parse(rm.Groups["value"].Value) : 0;
-            var green = Green.TryMatch(pull, out var gm) ? int.Parse(gm.Groups["value"].Value) : 0;
+            var blue  = Blue.TryMatch(pull, out var bm)  ? long.Parse(bm.Groups["value"].Value) : 0;
+            var red   = Red.TryMatch(pull, out var rm)   ? long.Parse(rm.Groups["value"].Value) : 0;
+            var green = Green.TryMatch(pull, out var gm) ? long.Parse(gm.Groups["value"].Value) : 0;
             pulls.Add(new Pull(red, green, blue));
         }
-        Power = pulls.Select(pull => (long)pull.Red).Max() *
-                pulls.Select(pull => (long)pull.Green).Max() *
-                pulls.Select(pull => (long)pull.Blue).Max();
+        Power = pulls.Select(pull => pull.Red).Max() *
+                pulls.Select(pull => pull.Green).Max() *
+                pulls.Select(pull => pull.Blue).Max();
     }
 }
 
-public class Pull(int red, int green, int blue)
+public class Pull(long red, long green, long blue)
 {
-    public int Red { get; } = red;
-    public int Green { get; } = green;
-    public int Blue { get; } = blue;
+    public long Red { get; } = red;
+    public long Green { get; } = green;
+    public long Blue { get; } = blue;
     public bool PossibleFor12Red13Green14Blue => Red <= 12 && Green <= 13 && Blue <= 14;
 }
